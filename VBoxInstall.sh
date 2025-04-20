@@ -4,8 +4,9 @@
 echo "Partitioning disk /dev/sda"
 
 DISK="/dev/sda"
-DISK_SIZE=$(parted $DISK --script unit MiB print | awk '/^Disk/ {gsub("MiB",""); print int($3)}')
-ROOT_END=$(($DISK_SIZE-2048))
+DISK_SIZE=$(lsblk -b -dn -o SIZE $DISK)          # size in bytes
+DISK_SIZE_MIB=$((DISK_SIZE / 1024 / 1024))       # convert to MiB
+ROOT_END=$((DISK_SIZE_MIB - 2048))          
 
 parted -s /dev/sda mklabel msdos
 parted /dev/sda --script mkpart primary ext4 0% $ROOT_END
