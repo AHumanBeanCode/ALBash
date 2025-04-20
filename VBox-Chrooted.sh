@@ -1,5 +1,10 @@
 #! /usr/bin/bash
 
+echo "Sorting Pacman"
+pacman-key --init
+pacman-key --populate archlinux
+pacman -Sy
+
 echo "Generating Locales"
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 locale-gen
