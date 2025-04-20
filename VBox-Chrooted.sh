@@ -21,7 +21,7 @@ passwd
 echo "Creating Home User"
 read -p "Enter Username: " USERNAME
 passwd $USERNAME
-useradd -m -G wheel -s /bin/bash $USERNAME
+useradd -m -G wheel $USERNAME
 sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 echo "Installing yay"
