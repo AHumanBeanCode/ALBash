@@ -30,9 +30,9 @@ pacstrap -K /mnt base linux linux-firmware
 echo "Generating fstab"
 genfstab -U /mnt >> /mnt/etc/fstab
 
-cp /ALBash/VBox-Chrooted.sh /mnt/VBox-Chrooted.sh
+cp ALBash/VBox-Chrooted.sh /mnt/VBox-Chrooted.sh
 
-chmod +x /mnt/chroot-setup.sh
+chmod +x /mnt/VBox-Chrooted.sh
 
 # Chroot into the new system
-echo "Chrooting into the new system. Please run ./chroot-setup.sh"
+echo "Chroot into /mnt and run VBox-Chrooted.sh"
