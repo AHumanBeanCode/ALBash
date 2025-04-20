@@ -25,7 +25,7 @@ passwd $USERNAME
 sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 echo "Installing yay"
-pacman -Sy --needed base-devel git
+pacman -Sy --needed base-devel git go
 sudo -u $USERNAME bash <<EOF
 cd /home/$USERNAME
 git clone https://aur.archlinux.org/yay.git
