@@ -42,5 +42,7 @@ echo "Installing Network Manager"
 pacman -S networkmanager
 systemctl enable NetworkManager
 
+/SoftwareIndex.sh
+
 #Finish
 echo "Please Reboot"

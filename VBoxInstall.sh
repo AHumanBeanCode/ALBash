@@ -31,6 +31,7 @@ echo "Generating fstab"
 genfstab -U /mnt >> /mnt/etc/fstab
 
 cp ALBash/VBox-Chrooted.sh /mnt/VBox-Chrooted.sh
+cp ALBash/SoftwareIndex.sh /mnt/SoftwareIndex.sh
 
 chmod +x /mnt/VBox-Chrooted.sh
 
