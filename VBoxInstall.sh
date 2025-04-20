@@ -32,12 +32,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 cp /ALBash/VBox-Chrooted.sh /mnt/VBox-Chrooted.sh
 
-#Finish
-echo "Please Reboot"
-EOF
-
 chmod +x /mnt/chroot-setup.sh
 
 # Chroot into the new system
 echo "Chrooting into the new system. Please run ./chroot-setup.sh"
-arch-chroot /mnt
