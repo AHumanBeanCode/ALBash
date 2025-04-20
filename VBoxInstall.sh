@@ -5,7 +5,7 @@ echo "Partitioning disk /dev/sda"
 
 DISK="/dev/sda"
 DISK_SIZE=$(parted $DISK --script unit MiB print | awk '/^Disk/ {gsub("MiB",""); print int($3)}')
-ROOT_END=$(($DISK_SIZE - 2048))
+ROOT_END=$(($DISK_SIZE-2048))
 
 parted -s /dev/sda mklabel msdos
 parted /dev/sda --script mkpart primary ext4 0% $ROOT_END
