@@ -54,7 +54,7 @@ chmod +x /mnt/chroot-setup.sh
 
 # Chroot into the new system
 echo "Chrooting into the new system"
-arch-chroot /mnt ./chroot-setup.sh
+arch-chroot /mnt /bin/bash ./chroot-setup.sh
 
 #Finish
 echo "Please Reboot."
