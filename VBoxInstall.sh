@@ -30,29 +30,31 @@ pacstrap -K /mnt base linux linux-firmware
 echo "Generating fstab"
 genfstab -U /mnt >> /mnt/etc/fstab
 
-# Chroot into the new system
-echo "Chrooting into the new system"
-arch-chroot /mnt
+cat << 'EOF' > /mnt/chroot-setup.sh
+#!/bin/bash
 
-#Set Locale
-ecbo "Generating Locales"
-locale-gen
+echo "Generating Locales"
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
-echo "en_US.UTF-8 UTF-8" > /etc/locale.conf
+locale-gen
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
-#Set Hostname
-read -p "Enter Hostname:" HOSTNAME
-echo $HOSTNAME /etc/hostname
+read -p "Enter Hostname: " HOSTNAME
+echo "$HOSTNAME" > /etc/hostname
 
-#Set Root Password
-echo "Enter New Root Password"
+echo "Set root password"
 passwd
 
-#Install Grub
 echo "Installing Grub"
-pacman -S grub
+pacman -Sy --noconfirm grub
 grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
+EOF
+
+chmod +x /mnt/chroot-setup.sh
+
+# Chroot into the new system
+echo "Chrooting into the new system"
+arch-chroot /mnt ./chroot-setup.sh
 
 #Finish
 echo "Please Reboot."
