@@ -1,4 +1,4 @@
-!# /usr/bin/bash
+#! /usr/bin/bash
 
 # Partition the disk
 echo "Partitioning disk /dev/sda"
@@ -33,3 +33,26 @@ genfstab -U /mnt >> /mnt/etc/fstab
 # Chroot into the new system
 echo "Chrooting into the new system"
 arch-chroot /mnt
+
+#Set Locale
+ecbo "Generating Locales"
+locale-gen
+echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
+echo "en_US.UTF-8 UTF-8" > /etc/locale.conf
+
+#Set Hostname
+read -p "Enter Hostname:" HOSTNAME
+echo $HOSTNAME /etc/hostname
+
+#Set Root Password
+echo "Enter New Root Password"
+passwd
+
+#Install Grub
+echo "Installing Grub"
+pacman -S grub
+grub-install --target=i386-pc /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
+
+#Finish
+echo "Please Reboot."
