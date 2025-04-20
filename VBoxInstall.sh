@@ -48,13 +48,13 @@ echo "Installing Grub"
 pacman -Sy --noconfirm grub
 grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
+
+#Finish
+echo "Please Reboot"
 EOF
 
 chmod +x /mnt/chroot-setup.sh
 
 # Chroot into the new system
-echo "Chrooting into the new system"
-arch-chroot /mnt /bin/bash ./chroot-setup.sh
-
-#Finish
-echo "Please Reboot."
+echo "Chrooting into the new system. Please run ./chroot-setup.sh"
+arch-chroot /mnt
