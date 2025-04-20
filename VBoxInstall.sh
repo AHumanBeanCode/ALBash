@@ -24,7 +24,7 @@ swapon /dev/sda2
 
 # Install base system
 echo "Installing base system"
-pacstrap -K /mnt base linux linux-firmware
+pacstrap -K /mnt base linux linux-firmware sudo
 
 # Generate fstab
 echo "Generating fstab"

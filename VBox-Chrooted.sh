@@ -3,6 +3,8 @@
 echo "Sorting Pacman"
 pacman-key --init
 pacman-key --populate archlinux
+sed -i 's/^#\[multilib\]/\[multilib\]/' /etc/pacman.conf
+sed -i 's/^#Include = /Include = /' /etc/pacman.conf
 pacman -Sy
 
 echo "Generating Locales"
@@ -15,6 +17,21 @@ echo "$HOSTNAME" > /etc/hostname
 
 echo "Set root password"
 passwd
+
+echo "Creating Home User"
+read -p "Enter Username: " USERNAME
+passwd $USERNAME
+useradd -m -G wheel -s /bin/bash $USERNAME
+sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
+
+echo "Installing yay"
+pacman -Sy --needed base-devel git
+sudo -u $USERNAME bash <<EOF
+cd /home/$USERNAME
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si --noconfirm
+EOF
 
 echo "Installing Grub"
 pacman -Sy --noconfirm grub
